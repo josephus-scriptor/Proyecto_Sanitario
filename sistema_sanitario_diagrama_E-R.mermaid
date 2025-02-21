@@ -1,0 +1,72 @@
+erDiagram
+    HOSPITAL ||--o{ SERVICIO_DISPONIBLE : tiene
+    HOSPITAL ||--|| MEDICO : dirijido_por
+    HOSPITAL ||--o{ MEDICO : emplea
+    SERVICIO ||--o{ SERVICIO_DISPONIBLE : ofertado_en
+    MEDICO ||--o{ SERVICIO_MEDICO : trabaja_en
+    SERVICIO ||--o{ SERVICIO_MEDICO : atendido_por
+    PACIENTE ||--|| HISTORIA_CLINICA : tiene
+    HISTORIA_CLINICA ||--o{ VISITA : contiene
+    VISITA }o--|| MEDICO : tratada_por
+    VISITA }o--|| SERVICIO_DISPONIBLE : realizada_en
+
+    HOSPITAL {
+        string codHospital PK
+        string nombre
+        string ciudad
+        string telefono
+    }
+
+    SERVICIO {
+        string idServicio PK
+        string nombreCompleto
+        string comentarios
+    }
+
+    SERVICIO_DISPONIBLE {
+        string codHospital FK
+        string idServicio FK
+        integer cantCamas
+    }
+
+    MEDICO {
+        string idMedico PK
+        string nombres
+        string apellidos
+        date fechaNacimiento
+        string hospitalAsignado FK
+        boolean esDirector
+    }
+
+    SERVICIO_MEDICO {
+        string idMedico FK
+        string codHospital FK
+        string idServicio FK
+    }
+
+    PACIENTE {
+        string idPaciente PK
+        string nombres
+        string apellidos
+        date fechaNacimiento
+        string numeroSeguridadSocial
+        string direccion
+    }
+
+    HISTORIA_CLINICA {
+        string codHist PK
+        string idPaciente FK
+    }
+
+    VISITA {
+        string idVisita PK
+        string codHist FK
+        datetime fechaVisita
+        string idMedico FK
+        string codHospital FK
+        string idServicio FK
+        string diagnostico
+        string tratamiento
+        string numHabitacion
+        date fechaDadoDeAlta
+    }
